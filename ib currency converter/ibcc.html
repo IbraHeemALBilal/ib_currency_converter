@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <style>
+
+            #logo 
+            {
+            background-image: url('logo.jpg') ;
+            height: 26vh;
+            border-color: black;
+            border-style:groove;
+            border-bottom-color: aliceblue;
+            }
+            #backg
+            {
+                background-image: url('background.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 150vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #calcolate_center
+            {
+                position: absolute;
+               background-image: url('b.jpg');
+               height: 60vh;
+               width: 170vh;
+               top: 40vh;
+            }
+            .a1{
+                margin-right: 33vh;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+        </style>
+        <script>
+            function f() {
+                    const apiKey = '11c374f08e0ccdeefa7ddae1';
+                    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/USD/ILS`;
+                    fetch(url).then(response=>response.json()).then(data=>{
+                        const exchangeRate = data.conversion_rate;
+                        if(document.getElementById("s1").value==document.getElementById("s2").value)
+                        {
+                            document.getElementById("output").value=(document.getElementById("amount").value);
+                        }
+                        else if(document.getElementById("s1").value==1 && document.getElementById("s2").value==2)
+                        {
+                            document.getElementById("output").value=(document.getElementById("amount").value*exchangeRate);
+                        }
+                        else if(document.getElementById("s1").value==2 && document.getElementById("s2").value==1)
+                        {
+                            document.getElementById("output").value=(document.getElementById("amount").value/exchangeRate);
+                        }
+                        
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+    </head>
+    <body >
+        <div id="logo"  ></div>
+
+        <div id="backg">
+            <div id="calcolate_center">
+                  <form >
+                    <table style="margin-top: 10vh;margin-left: 20vh;">
+                        <tr style="margin-bottom: 8vh;">
+                            <td ><h1 class="a1" >Amount</h1></td>
+                            <td ><h1 class="a1" >From</h1></td>
+                            <td ><h1 class="a1" >To</h1></td>
+                        </tr>
+                        <tr>
+                            <td><input id="amount" type="number" style="height: 7vh;"></td>
+                            <td>
+                                <select id="s1" style="height: 7vh; width: 25vh;" >
+                                    <option value="1">USD-US Dollar</option>
+                                    <option value="2" >ILS-Israeli Shekel</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="s2" style="height: 7vh; width: 25vh;" >
+                                    <option value="1"  >USD-US Dollar</option>
+                                    <option value="2">ILS-Israeli Shekel</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input style="background-color: rgb(50, 50, 216); margin-top: 15vh; width: 20vh;height: 7vh;" type="button" value="Convert" onclick="f()"></td>
+                            <td><h1 style="margin-top: 18vh;">The result :</h1></td>
+                            <td><input id="output" type="text" style="height: 7vh;margin-top: 15vh;"></td>
+                        </tr>
+                    </table>
+                   
+                   
+                  </form>
+            </div>
+        </div>
+    </body>
+</html>
